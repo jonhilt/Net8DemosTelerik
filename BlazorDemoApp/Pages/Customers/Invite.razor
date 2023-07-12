@@ -1,0 +1,40 @@
+﻿@page "/Customer/Invite"
+
+<h3>Invite Customer</h3>
+
+<EditForm method="post" Model="CustomerInvite" OnValidSubmit="InviteCustomer" class="col-md-4">
+    <DataAnnotationsValidator />
+    <div class="mb-2">
+        <label for="firstName" class="form-label">First Name:</label>
+        <InputText id="firstName" class="form-control" @bind-Value="CustomerInvite.FirstName"/>
+    </div>
+    <div class="mb-2">
+        <label for="firstName" class="form-label">Email:</label>
+        <InputText id="firstName" class="form-control" @bind-Value="CustomerInvite.Email"/>
+    </div>
+    <div class="mb-2">
+        <button type="submit" class="btn btn-primary">Invite</button>
+    </div>
+</EditForm>
+
+@if (customerInvited)
+{
+    <div>
+        <span>Customer Invited - Ask them to check their inbox to complete the signup process.</span>
+    </div>   
+}
+
+
+@code {
+    private bool customerInvited;
+
+    [SupplyParameterFromForm]
+    public CustomerInvite CustomerInvite { get; set; } = new();
+
+    private void InviteCustomer()
+    {
+        Console.WriteLine("Inviting Customer: " + CustomerInvite.Email);
+        customerInvited = true;
+    }
+
+}
