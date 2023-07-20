@@ -1,0 +1,66 @@
+﻿@using BlazorDemoApp.Shared.Data
+@inject ProductStore Store
+
+@if (related == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    @if (related.Data.Any())
+    {
+        <h2>Related Products</h2>
+
+        <section class="flex-row d-flex gap-2">
+            @if (currentPage > 0)
+            {
+                <button class="btn btn-outline-secondary" @onclick="PrevPage">&lt;</button>
+            }
+            
+            @foreach (var item in related.Data)
+            {
+                <div class="p-2 rounded-2 border">
+                    <p class="text-center">@item.Title</p>
+                    <img src="images/@item.Image"/>
+                </div>
+            }
+            
+            @if (related.TotalPages > currentPage)
+            {
+                <button class="btn btn-outline-secondary" @onclick="NextPage">&gt;</button>
+            }
+        </section>
+    }
+}
+
+@code {
+    private RelatedProductsList? related;
+
+    int currentPage = 0;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadRelatedProducts();
+    }
+
+    private async Task NextPage()
+    {
+        currentPage++;
+        await LoadRelatedProducts();
+    }
+
+    private async Task PrevPage()
+    {
+        currentPage--;
+        await LoadRelatedProducts();
+    }
+
+    private async Task LoadRelatedProducts()
+    {
+        related = await Store.ListRelated(Id, currentPage);
+    }
+
+}

@@ -1,4 +1,5 @@
 using BlazorDemoApp;
+using BlazorDemoApp.Shared.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ builder.Services.AddRazorComponents()
     .AddServerComponents();
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<ProductStore>();
 
 var app = builder.Build();
 
@@ -26,6 +29,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapRazorComponents<App>()
+    .AddServerRenderMode()
     .AddWebAssemblyRenderMode();
 
 app.MapControllers();

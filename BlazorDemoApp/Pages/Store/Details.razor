@@ -1,0 +1,23 @@
+﻿@page "/Products/{Id}"
+@using BlazorDemoApp.Shared.Data
+@inject ProductStore Store
+
+<h3>@details.Title</h3>
+
+<p>@details.Description</p>
+
+<RelatedProducts Id="Convert.ToInt32(Id)" @rendermode="@RenderMode.Server"></RelatedProducts>
+
+@code {
+    private ProductDetails details;
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override Task OnParametersSetAsync()
+    {
+        details = Store.Get(Convert.ToInt32(Id));
+        return base.OnParametersSetAsync();
+    }
+
+}
