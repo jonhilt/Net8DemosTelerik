@@ -1,0 +1,26 @@
+﻿@page "/GridList"
+@using BlazorDemoApp.Shared.Data
+@inject IProductStore Store
+
+<section class="container">
+    <div class="row">
+        <h2>Popular Products</h2>
+        @foreach (var product in products)
+        {
+            <div class="col-sm-4 mb-4">
+                <ProductCard Product="product"></ProductCard>
+            </div>
+        }
+    </div>
+</section>
+
+@code {
+    private List<ProductSummary> products;
+
+    protected override Task OnInitializedAsync()
+    {
+        products = Store.List();
+        return base.OnInitializedAsync();
+    }
+
+}

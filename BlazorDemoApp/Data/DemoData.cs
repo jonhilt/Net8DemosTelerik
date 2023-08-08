@@ -1,6 +1,8 @@
-﻿namespace BlazorDemoApp.Shared.Data;
+﻿using BlazorDemoApp.Shared.Data;
 
-public class DemoData
+namespace BlazorDemoApp.Data;
+
+public static class DemoData
 {
     public static List<Product> Products()
     {

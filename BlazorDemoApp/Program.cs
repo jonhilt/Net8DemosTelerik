@@ -1,4 +1,5 @@
 using BlazorDemoApp;
+using BlazorDemoApp.Data;
 using BlazorDemoApp.Shared.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +9,14 @@ builder.Services.AddRazorComponents()
     .AddWebAssemblyComponents()
     .AddServerComponents();
 
+builder.Services.AddScoped(sp => new HttpClient 
+{ 
+    BaseAddress = new Uri("http://localhost:5023/") 
+});
+
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<ProductStore>();
+builder.Services.AddScoped<IProductStore, ProductStore>();
 
 var app = builder.Build();
 

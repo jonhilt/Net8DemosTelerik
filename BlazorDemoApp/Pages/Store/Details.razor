@@ -1,12 +1,12 @@
 ﻿@page "/Products/{Id}"
 @using BlazorDemoApp.Shared.Data
-@inject ProductStore Store
+@inject IProductStore Store
 
 <h3>@details.Title</h3>
 
 <p>@details.Description</p>
 
-<RelatedProducts Id="Convert.ToInt32(Id)" @rendermode="@RenderMode.Server"></RelatedProducts>
+<RelatedProducts Id="Convert.ToInt32(Id)" @rendermode="@RenderMode.WebAssembly" />
 
 @code {
     private ProductDetails details;

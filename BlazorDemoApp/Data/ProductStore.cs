@@ -1,6 +1,8 @@
-﻿namespace BlazorDemoApp.Shared.Data;
+﻿using BlazorDemoApp.Shared.Data;
 
-public class ProductStore
+namespace BlazorDemoApp.Data;
+
+public class ProductStore : IProductStore
 {
     private readonly List<Product> _products = DemoData.Products();
 
@@ -30,7 +32,7 @@ public class ProductStore
         };
     }
 
-    public async Task<RelatedProductsList> ListRelated(int productId, int pageNumber)
+    public async Task<RelatedProductsList?> ListRelated(int productId, int pageNumber)
     {
         int pageSize = 5;
 

@@ -1,5 +1,5 @@
 ﻿@using BlazorDemoApp.Shared.Data
-@inject ProductStore Store
+@inject IProductStore ProductStore
 
 @if (related == null)
 {
@@ -60,7 +60,7 @@ else
 
     private async Task LoadRelatedProducts()
     {
-        related = await Store.ListRelated(Id, currentPage);
+        related = await ProductStore.ListRelated(Id, currentPage);
     }
 
 }
