@@ -29,7 +29,7 @@ public class ClientProductStore : IProductStore
         throw new NotImplementedException();
     }
 
-    public PlaceOrderModel GetCheckout()
+    public PlaceOrderCommand GetCheckout()
     {
         throw new NotImplementedException();
     }

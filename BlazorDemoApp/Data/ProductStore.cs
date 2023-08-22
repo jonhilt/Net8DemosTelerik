@@ -33,20 +33,21 @@ public class ProductStore : IProductStore
         };
     }
 
-    public PlaceOrderModel GetCheckout()
+    public PlaceOrderCommand GetCheckout()
     {
-        return new PlaceOrderModel
+        return new PlaceOrderCommand
         {
-            Command = new PlaceOrderCommand
+            BillingAddress = new PlaceOrderCommand.Address
             {
-                BillingAddress = new PlaceOrderCommand.Address
-                {
-                    Name = "Blanche DuBois",
-                    AddressLine1 = "A Streetcar",
-                    AddressLine2 = "Named Desire",
-                    City = "New Orleans",
-                    PostCode = "70122"
-                }
+                Name = "Blanche DuBois",
+                AddressLine1 = "A Streetcar",
+                AddressLine2 = "Named Desire",
+                City = "New Orleans",
+                PostCode = "70122"
+            },
+            Items = new List<PlaceOrderCommand.OrderItem>
+            {
+                new() { Quantity = 1, SKU = "TSHIRT" }
             }
         };
     }

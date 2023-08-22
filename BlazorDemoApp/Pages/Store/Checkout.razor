@@ -1,47 +1,93 @@
 ﻿@page "/Checkout"
 @using BlazorDemoApp.Shared.Checkout
-@using Microsoft.AspNetCore.Components.Forms
+@using BlazorDemoApp.Shared.Data
+@inject IProductStore Store
 
 <h3>Checkout</h3>
 
-@if (Model != null)
+@if (Command != null)
 {
-    <EditForm Model="Model" method="post" OnValidSubmit="SubmitOrder" FormName="checkout">
+    <EditForm Model="Command" method="post" OnValidSubmit="SubmitOrder" FormName="checkout">
         <DataAnnotationsValidator/>
+        
+        @if (Command.Items.Count > 0)
+        {
+            <h4>Items</h4>
+           @foreach (var item in Command.Items)
+           {
+               <label>
+                   @item.SKU
+                   <InputNumber @bind-Value="item.Quantity"/>
+               </label>
+           }
+        }
+
+        <h4>Ship To:</h4>
         <div>
             <label>Name</label>
-            <InputText @bind-Value="Model.Command.BillingAddress.Name"/>
+            <InputText @bind-Value="Command.BillingAddress.Name"/>
         </div>
         <div>
             <label>Address 1</label>
-            <InputText @bind-Value="Model.Command.BillingAddress.AddressLine1"/>
+            <InputText @bind-Value="Command.BillingAddress.AddressLine1"/>
         </div>
         <div>
             <label>Address 2</label>
-            <InputText @bind-Value="Model.Command.BillingAddress.AddressLine2"/>
+            <InputText @bind-Value="Command.BillingAddress.AddressLine2"/>
         </div>
         <div>
             <label>City</label>
-            <InputText @bind-Value="Model.Command.BillingAddress.City"/>
+            <InputText @bind-Value="Command.BillingAddress.City"/>
         </div>
         <div>
             <label>Post Code</label>
-            <InputText @bind-Value="Model.Command.BillingAddress.PostCode"/>
+            <InputText @bind-Value="Command.BillingAddress.PostCode"/>
         </div>
         <button type="submit">Place Order</button>
-        <ValidationSummary />
+        <ValidationSummary/>
     </EditForm>
 }
 
 @if (submitted)
 {
-    <p>Hey, look at that, you placed the order!</p>
+    <div class="orderSummary">
+        <p>Hey, look at that, you placed the order!</p>
+        <h2>Order Summary</h2>
+
+        <h3>Includes:</h3>
+        <dl>
+            @foreach (var item in Command.Items)
+            {
+                <dt>@item.SKU</dt>
+                <dd>@item.Quantity</dd>
+            }
+        </dl>
+
+        <h3>Shipping To:</h3>
+        <dl>
+            <dt>Name</dt>
+            <dd>@Command.BillingAddress.Name</dd>
+            <dt>Address 1</dt>
+            <dd>@Command.BillingAddress.AddressLine1</dd>
+            <dt>Address 2</dt>
+            <dd>@Command.BillingAddress.AddressLine2</dd>
+            <dt>City</dt>
+            <dd>@Command.BillingAddress.City</dd>
+            <dt>Post Code</dt>
+            <dd>@Command.BillingAddress.PostCode</dd>
+        </dl>
+    </div>
 }
 
 @code {
 
     [SupplyParameterFromForm]
-    public PlaceOrderModel? Model { get; set; } = new();
+    public PlaceOrderCommand? Command { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Command ??= Store.GetCheckout();
+    }
 
     bool submitted = false;
 
