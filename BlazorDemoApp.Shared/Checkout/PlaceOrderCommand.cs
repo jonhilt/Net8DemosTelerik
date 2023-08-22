@@ -4,6 +4,7 @@ namespace BlazorDemoApp.Shared.Checkout;
 
 public record PlaceOrderCommand
 {
+    [ValidateComplexType]
     public Address BillingAddress { get; set; } = new();
     public List<OrderItem> Items { get; set; } = new();
 

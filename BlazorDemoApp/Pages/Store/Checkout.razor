@@ -7,7 +7,7 @@
 @if (Model != null)
 {
     <EditForm Model="Model" method="post" OnValidSubmit="SubmitOrder" FormName="checkout">
-        <DataAnnotationsValidator/>
+        <ObjectGraphDataAnnotationsValidator/>
         <div>
             <label>Name</label>
             <InputText @bind-Value="Model.Command.BillingAddress.Name"/>
@@ -29,7 +29,7 @@
             <InputText @bind-Value="Model.Command.BillingAddress.PostCode"/>
         </div>
         <button type="submit">Place Order</button>
-        <ValidationSummary />
+        <ValidationSummary/>
     </EditForm>
 }
 
