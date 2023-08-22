@@ -1,4 +1,5 @@
-﻿using BlazorDemoApp.Shared.Data;
+﻿using BlazorDemoApp.Shared.Checkout;
+using BlazorDemoApp.Shared.Data;
 
 namespace BlazorDemoApp.Data;
 
@@ -29,6 +30,24 @@ public class ProductStore : IProductStore
             Price = details.Price,
             Title = details.Title,
             Description = details.Description
+        };
+    }
+
+    public PlaceOrderModel GetCheckout()
+    {
+        return new PlaceOrderModel
+        {
+            Command = new PlaceOrderCommand
+            {
+                BillingAddress = new PlaceOrderCommand.Address
+                {
+                    Name = "Blanche DuBois",
+                    AddressLine1 = "A Streetcar",
+                    AddressLine2 = "Named Desire",
+                    City = "New Orleans",
+                    PostCode = "70122"
+                }
+            }
         };
     }
 

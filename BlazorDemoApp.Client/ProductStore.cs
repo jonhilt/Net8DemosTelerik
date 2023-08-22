@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using BlazorDemoApp.Shared.Checkout;
 using BlazorDemoApp.Shared.Data;
 
 namespace BlazorDemoApp.Client;
@@ -24,6 +25,11 @@ public class ClientProductStore : IProductStore
     }
 
     public ProductDetails Get(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public PlaceOrderModel GetCheckout()
     {
         throw new NotImplementedException();
     }

@@ -2,7 +2,7 @@
 
 <h3>Invite Customer</h3>
 
-<EditForm method="post" Model="CustomerInvite" OnValidSubmit="InviteCustomer" class="col-md-4">
+<EditForm method="post" Model="CustomerInvite" OnValidSubmit="InviteCustomer" FormName="CustomerInvite" class="col-md-4">
     <DataAnnotationsValidator />
     <div class="mb-2">
         <label for="firstName" class="form-label">First Name:</label>
@@ -15,6 +15,7 @@
     <div class="mb-2">
         <button type="submit" class="btn btn-primary">Invite</button>
     </div>
+    <ValidationSummary/>
 </EditForm>
 
 @if (customerInvited)

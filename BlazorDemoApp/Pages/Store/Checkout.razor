@@ -1,0 +1,53 @@
+﻿@page "/Checkout"
+@using BlazorDemoApp.Shared.Checkout
+@using Microsoft.AspNetCore.Components.Forms
+
+<h3>Checkout</h3>
+
+@if (Model != null)
+{
+    <EditForm Model="Model" method="post" OnValidSubmit="SubmitOrder" FormName="checkout">
+        <DataAnnotationsValidator/>
+        <div>
+            <label>Name</label>
+            <InputText @bind-Value="Model.Command.BillingAddress.Name"/>
+        </div>
+        <div>
+            <label>Address 1</label>
+            <InputText @bind-Value="Model.Command.BillingAddress.AddressLine1"/>
+        </div>
+        <div>
+            <label>Address 2</label>
+            <InputText @bind-Value="Model.Command.BillingAddress.AddressLine2"/>
+        </div>
+        <div>
+            <label>City</label>
+            <InputText @bind-Value="Model.Command.BillingAddress.City"/>
+        </div>
+        <div>
+            <label>Post Code</label>
+            <InputText @bind-Value="Model.Command.BillingAddress.PostCode"/>
+        </div>
+        <button type="submit">Place Order</button>
+        <ValidationSummary />
+    </EditForm>
+}
+
+@if (submitted)
+{
+    <p>Hey, look at that, you placed the order!</p>
+}
+
+@code {
+
+    [SupplyParameterFromForm]
+    public PlaceOrderModel? Model { get; set; } = new();
+
+    bool submitted = false;
+
+    private void SubmitOrder()
+    {
+        submitted = true;
+    }
+
+}
