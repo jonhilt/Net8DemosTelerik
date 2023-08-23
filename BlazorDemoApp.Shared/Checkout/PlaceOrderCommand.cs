@@ -5,6 +5,7 @@ namespace BlazorDemoApp.Shared.Checkout;
 public record PlaceOrderCommand
 {
     public Address BillingAddress { get; set; } = new();
+    public Address ShippingAddress { get; set; } = new();
     public List<OrderItem> Items { get; set; } = new();
 
     public class Address

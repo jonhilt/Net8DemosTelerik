@@ -1,0 +1,27 @@
+﻿@using BlazorDemoApp.Shared.Checkout
+@inherits Editor<PlaceOrderCommand.Address>
+
+<div>
+    <label>Name</label>
+    <InputText @bind-Value="Value.Name"/>
+</div>
+<div>
+    <label>Address 1</label>
+    <InputText @bind-Value="Value.AddressLine1"/>
+</div>
+<div>
+    <label>Address 2</label>
+    <InputText @bind-Value="Value.AddressLine2"/>
+</div>
+<div>
+    <label>City</label>
+    <InputText @bind-Value="Value.City"/>
+</div>
+<div>
+    <label>Post Code</label>
+    <InputText @bind-Value="Value.PostCode"/>
+</div>
+
+@code {
+
+}

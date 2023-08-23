@@ -7,27 +7,12 @@
     <EditForm Model="Command" method="post" OnValidSubmit="SubmitOrder" FormName="checkout">
         <DataAnnotationsValidator/>
 
+        <h4>Bill To:</h4>
+        <AddressEntry @bind-Value="Command.BillingAddress"/>
+
         <h4>Ship To:</h4>
-        <div>
-            <label>Name</label>
-            <InputText @bind-Value="Command.BillingAddress.Name"/>
-        </div>
-        <div>
-            <label>Address 1</label>
-            <InputText @bind-Value="Command.BillingAddress.AddressLine1"/>
-        </div>
-        <div>
-            <label>Address 2</label>
-            <InputText @bind-Value="Command.BillingAddress.AddressLine2"/>
-        </div>
-        <div>
-            <label>City</label>
-            <InputText @bind-Value="Command.BillingAddress.City"/>
-        </div>
-        <div>
-            <label>Post Code</label>
-            <InputText @bind-Value="Command.BillingAddress.PostCode"/>
-        </div>
+        <AddressEntry @bind-Value="Command.ShippingAddress"/>
+
         <button type="submit">Place Order</button>
         <ValidationSummary/>
     </EditForm>
