@@ -1,24 +1,15 @@
-using BlazorDemoApp;
-using BlazorDemoApp.Data;
-using BlazorDemoApp.Shared.Data;
+using BlazorMigrationDemo;
+using BlazorMigrationDemo.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddSingleton<WeatherForecastService>();
+
 builder.Services.AddRazorComponents()
-    .AddWebAssemblyComponents()
     .AddInteractiveServerComponents();
-
-builder.Services.AddScoped(sp => new HttpClient 
-{ 
-    BaseAddress = new Uri("http://localhost:5023/") 
-});
-
-builder.Services.AddControllers();
-
-builder.Services.AddScoped<IProductStore, ProductStore>();
-
-builder.Services.AddCascadingValue(sp => new Preferences { Theme = "Dark" });
 
 var app = builder.Build();
 
@@ -36,12 +27,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAntiforgery();
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
 
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode()
-    .AddWebAssemblyRenderMode();
-
-app.MapControllers();
+    .AddInteractiveServerRenderMode();
 
 app.Run();

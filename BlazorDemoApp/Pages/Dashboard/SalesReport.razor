@@ -1,0 +1,20 @@
+﻿@using BlazorDemoApp.Data
+@attribute [RenderModeInteractiveServer]
+
+<h3>SalesReport</h3>
+
+@if (Preferences == null)
+{
+    <p>Uh oh, no preferences!</p>
+}
+else
+{
+    <p>Your theme is: @Preferences.Theme</p>
+}
+
+@code {
+    
+    [CascadingParameter]
+    private Preferences? Preferences { get; set; }
+    
+}

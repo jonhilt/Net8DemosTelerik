@@ -1,0 +1,26 @@
+﻿<Card>
+    <Header>
+        <div class="d-flex justify-content-end">
+            <span class="rounded-md p-2 department">@SupportTicket.Department</span>
+        </div>
+    </Header>
+    <ChildContent>
+        <p class="card-text">@SupportTicket.Subject</p>
+    </ChildContent>
+    <Footer>
+        <button class="btn btn-primary" @onclick="Resolve">Resolve</button>
+    </Footer>
+</Card>
+
+@code {
+
+    [Parameter]
+    public SupportTicketSummary SupportTicket { get; set; }
+
+    private void Resolve()
+    {
+        // in reality - call an API or something
+        Console.WriteLine("Ticket resolved");
+    }
+
+}

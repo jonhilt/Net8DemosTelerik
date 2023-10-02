@@ -1,0 +1,14 @@
+﻿@using BlazorDemoApp.Data
+@page "/Dashboard"
+
+<h3>Dashboard</h3>
+
+<CascadingValue Value="preferences">
+    <SalesSummaryWidget/>
+</CascadingValue>
+
+@code {
+
+    Preferences preferences = new() { Theme = "Dark" };
+
+}

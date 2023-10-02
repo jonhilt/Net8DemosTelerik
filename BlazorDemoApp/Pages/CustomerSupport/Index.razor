@@ -1,0 +1,28 @@
+﻿@page "/CustomerSupport/Dashboard"
+
+<div class="gap-2 d-flex flex-row">
+    <section class="flex-grow-1 border p p-2">
+        <p class="text-center">New</p>
+        @foreach (var ticket in tickets.Where(x => x.Status == "New"))
+        {
+            <SupportCard SupportTicket="ticket" @rendermode="@RenderMode.InteractiveServer"/>
+        }
+    </section>
+    <section class="flex-grow-1 border p p-2">
+        <p class="text-center">Assigned</p>
+    </section>
+    <section class="flex-grow-1 border p p-2">
+        <p class="text-center">Closed</p>
+    </section>
+</div>
+
+@code {
+
+    List<SupportTicketSummary> tickets = new(){new SupportTicketSummary
+    {
+        Department = "Electronics",
+        Status = "New",
+        Subject = "This item is faulty"
+    }};
+    
+}
