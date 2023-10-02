@@ -1,5 +1,6 @@
 using BlazorMigrationDemo;
 using BlazorMigrationDemo.Data;
+using BlazorMigrationDemo.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,15 +23,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
-app.UseRouting();
-
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+app.UseStatusCodePagesWithRedirects("/StatusCode/{0}");
 
 app.Run();
