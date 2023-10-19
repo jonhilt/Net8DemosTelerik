@@ -1,0 +1,29 @@
+﻿@page "/FormDemo"
+
+<h3>Send us feedback!</h3>
+
+<EditForm Model="@FeedbackModel" OnValidSubmit="SendFeedback" FormName="feedbackForm" method="POST">
+    <InputText class="form-control" @bind-Value="FeedbackModel.Email"/>
+    <InputTextArea class="form-control" @bind-Value="FeedbackModel.Message"></InputTextArea>
+    <button type="submit">
+        Send
+    </button>
+</EditForm>
+
+@code {
+    
+    [SupplyParameterFromForm]
+    public Feedback FeedbackModel { get; set; } = new Feedback();
+
+    public class Feedback
+    {
+        public string Email { get; set; }
+        public string Message { get; set; }
+    }
+
+    private void SendFeedback()
+    {
+        Console.WriteLine("Feedback received from: " + FeedbackModel.Email + "message: " + FeedbackModel.Message);
+    }
+
+}

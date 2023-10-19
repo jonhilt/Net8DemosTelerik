@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddWebAssemblyComponents()
+    .AddInteractiveWebAssemblyComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped(sp => new HttpClient 
@@ -40,7 +40,7 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
-    .AddWebAssemblyRenderMode();
+    .AddInteractiveWebAssemblyRenderMode();
 
 app.MapControllers();
 
