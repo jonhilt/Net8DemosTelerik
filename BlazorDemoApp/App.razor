@@ -28,6 +28,12 @@
         </NotFound>
     </Router>
 
-    <script src="_framework/blazor.web.js" suppress-error="BL9992"></script>
+<script src="_framework/blazor.web.js" suppress-error="BL9992"></script>
+
+<script>
+    Blazor.addEventListener('enhancedload', () => {
+        console.log('enhanced load event occurred');
+    });
+</script>
 </body>
 </html>
