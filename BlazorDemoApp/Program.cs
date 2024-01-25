@@ -1,4 +1,4 @@
-using BlazorDemoApp;
+using BlazorDemoApp.Components;
 using BlazorDemoApp.Data;
 using BlazorDemoApp.Shared.Data;
 
@@ -6,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddWebAssemblyComponents()
-    .AddServerComponents();
+    .AddInteractiveWebAssemblyComponents()
+    .AddInteractiveServerComponents();
 
 builder.Services.AddScoped(sp => new HttpClient 
 { 
@@ -37,8 +37,8 @@ app.UseRouting();
 app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
-    .AddServerRenderMode()
-    .AddWebAssemblyRenderMode();
+    .AddInteractiveServerRenderMode()
+    .AddInteractiveWebAssemblyRenderMode();
 
 app.MapControllers();
 

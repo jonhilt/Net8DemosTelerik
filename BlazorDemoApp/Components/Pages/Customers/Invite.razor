@@ -1,19 +1,23 @@
-﻿@page "/CustomerInviteHTMLForm"
+﻿@page "/Customer/Invite"
+@using BlazorDemoApp.Pages.Customers
 
-<form method="post" @formname="invite" @onsubmit="InviteCustomer" class="col-md-4">
+<h3>Invite Customer</h3>
+
+<EditForm method="post" Model="CustomerInvite" OnValidSubmit="InviteCustomer" FormName="CustomerInvite" class="col-md-4">
+    <DataAnnotationsValidator />
     <div class="mb-2">
         <label for="firstName" class="form-label">First Name:</label>
         <InputText id="firstName" class="form-control" @bind-Value="CustomerInvite.FirstName"/>
     </div>
     <div class="mb-2">
         <label for="firstName" class="form-label">Email:</label>
-        <InputText id="email" class="form-control" @bind-Value="CustomerInvite.Email"/>
+        <InputText id="firstName" class="form-control" @bind-Value="CustomerInvite.Email"/>
     </div>
     <div class="mb-2">
         <button type="submit" class="btn btn-primary">Invite</button>
     </div>
-    <AntiforgeryToken />
-</form>
+    <ValidationSummary/>
+</EditForm>
 
 @if (customerInvited)
 {
@@ -22,18 +26,17 @@
     </div>   
 }
 
+
 @code {
+    private bool customerInvited;
 
     [SupplyParameterFromForm]
     public CustomerInvite CustomerInvite { get; set; } = new();
-    
-    bool customerInvited = false;
-    
+
     private void InviteCustomer()
     {
         Console.WriteLine("Inviting Customer: " + CustomerInvite.Email);
         customerInvited = true;
-        CustomerInvite = new();
     }
-    
+
 }
