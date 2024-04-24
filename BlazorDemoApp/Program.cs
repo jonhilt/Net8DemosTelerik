@@ -1,6 +1,8 @@
 using BlazorDemoApp.Components;
 using BlazorDemoApp.Data;
+using BlazorDemoApp.Endpoints;
 using BlazorDemoApp.Shared.Data;
+using BlazorDemoApp.Shared.Weather;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,7 @@ builder.Services.AddScoped(sp => new HttpClient
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IProductStore, ProductStore>();
+builder.Services.AddScoped<IWeatherService, ServerWeatherService>();
 
 var app = builder.Build();
 
@@ -38,7 +41,9 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
-    .AddInteractiveWebAssemblyRenderMode();
+    .AddInteractiveWebAssemblyRenderMode().AddAdditionalAssemblies(typeof(BlazorDemoApp.Client._Imports).Assembly);
+
+app.MapWeatherEndpoints();
 
 app.MapControllers();
 

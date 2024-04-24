@@ -1,0 +1,40 @@
+﻿@page "/Weather"
+@using BlazorDemoApp.Shared.Weather
+
+@rendermode InteractiveAuto
+@inject IWeatherService WeatherService
+@inject PersistentComponentState ApplicationState
+@implements IDisposable
+
+<h1>Weather</h1>
+
+<WeatherTable Model="_model" />
+
+@code {
+
+    private WeatherForecastModel? _model;
+    private PersistingComponentStateSubscription _subscription;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _subscription = ApplicationState.RegisterOnPersisting(Persist);
+
+        var foundInState = ApplicationState.TryTakeFromJson<WeatherForecastModel>("weather", out var forecasts);
+
+        _model = foundInState
+            ? forecasts
+            : await WeatherService.FetchAsync();
+    }
+
+    private Task Persist()
+    {
+        ApplicationState.PersistAsJson("weather", _model);
+        return Task.CompletedTask;
+    }
+
+    public void Dispose()
+    {
+        _subscription.Dispose();
+    }
+
+}

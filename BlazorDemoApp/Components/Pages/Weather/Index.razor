@@ -1,0 +1,15 @@
+﻿@page "/ServerWeather"
+@using BlazorDemoApp.Shared.Weather
+@inject IWeatherService WeatherService
+
+<WeatherTable Model="_model" @rendermode="InteractiveAuto"/>
+
+@code {
+    private WeatherForecastModel? _model;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _model = await WeatherService.FetchAsync();
+    }
+
+}

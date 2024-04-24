@@ -1,0 +1,18 @@
+﻿@page "/FileUpload/InteractiveServer"
+@rendermode  InteractiveServer
+
+<InputFile OnChange="UploadFile" class="form-control"/>
+
+@code {
+
+    private async Task UploadFile(InputFileChangeEventArgs e)
+    {
+        var saveFolder = Path.Combine("C:\\Temp\\Files");
+        var filePath = Path.Combine(saveFolder, e.File.Name);
+        Directory.CreateDirectory(saveFolder);
+
+        await using FileStream fs = new(filePath, FileMode.Create);
+        await e.File.OpenReadStream().CopyToAsync(fs);
+    }
+
+}

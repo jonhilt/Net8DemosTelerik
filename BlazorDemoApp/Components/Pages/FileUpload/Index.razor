@@ -1,0 +1,34 @@
+﻿@page "/FileUpload"
+<h3>Upload File</h3>
+
+<form method="post" enctype="multipart/form-data" @formname="UploadFile">
+    <input type="file" name="file" class="form-control"/>
+    <button type="submit" class="btn btn-primary mt-3">Upload File</button>
+    <AntiforgeryToken/>
+</form>
+
+<section class="mt-2">
+    <p>You uploaded: @File?.FileName</p>
+</section>
+
+@code {
+
+    [SupplyParameterFromForm] public IFormFile? File { get; set; }
+
+    string _thing = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        _thing = File?.FileName ?? "No File";
+
+        if (File == null)
+            return;
+
+        var saveFolder = Path.Combine("C:\\Temp\\Files");
+        var filePath = Path.Combine(saveFolder, File.FileName);
+        Directory.CreateDirectory(saveFolder);
+        await using var stream = new FileStream(filePath, FileMode.Create);
+        await File.CopyToAsync(stream);
+    }
+
+}
