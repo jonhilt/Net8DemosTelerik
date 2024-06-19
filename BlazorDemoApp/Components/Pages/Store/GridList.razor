@@ -2,16 +2,26 @@
 @using BlazorDemoApp.Shared.Data
 @inject IProductStore Store
 
-<section class="container">
-    <div class="row">
-        <h2>Popular Products</h2>
+<section class="container my-4">
+    <h2>Popular Products</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
         @foreach (var product in products)
         {
-            <div class="col-sm-4 mb-4">
-                <ProductCard Product="product"></ProductCard>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/images/@product.Image" alt="Product Image Description"/>
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Title</h5>
+                        <p class="card-text">@product.Price.ToString("C")</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <span class="">FREE Delivery</span>
+                    </div>
+                </div>
             </div>
         }
     </div>
+
 </section>
 
 @code {

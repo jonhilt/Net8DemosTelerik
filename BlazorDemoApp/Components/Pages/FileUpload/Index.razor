@@ -27,8 +27,9 @@
         var saveFolder = Path.Combine("C:\\Temp\\Files");
         var filePath = Path.Combine(saveFolder, File.FileName);
         Directory.CreateDirectory(saveFolder);
-        await using var stream = new FileStream(filePath, FileMode.Create);
-        await File.CopyToAsync(stream);
+        
+        await using FileStream fs = new(filePath, FileMode.Create);
+        await File.CopyToAsync(fs);
     }
 
 }
