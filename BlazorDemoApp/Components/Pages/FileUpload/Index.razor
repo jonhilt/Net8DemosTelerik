@@ -15,8 +15,6 @@
 
     [SupplyParameterFromForm] public IFormFile? File { get; set; }
 
-    string _thing = "";
-
     protected override async Task OnInitializedAsync()
     {
         _thing = File?.FileName ?? "No File";
