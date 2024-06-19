@@ -17,8 +17,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _thing = File?.FileName ?? "No File";
-
         if (File == null)
             return;
 

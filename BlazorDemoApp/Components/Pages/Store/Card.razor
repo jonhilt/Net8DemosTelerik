@@ -1,0 +1,22 @@
+﻿<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="@ImageUrl" alt="Product Image Description"/>
+    <div class="card-body">
+        <h5 class="card-title">@Title</h5>
+        <p class="card-text">@Text</p>
+    </div>
+    <div class="card-footer text-center">
+        @FooterContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public string ImageUrl { get; set; }
+
+    [Parameter] public string ImageAltText { get; set; }
+    
+    [Parameter] public string Title { get; set; }
+    
+    [Parameter] public string Text { get; set; }
+    
+    [Parameter] public RenderFragment FooterContent { get; set; }
+}

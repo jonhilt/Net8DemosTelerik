@@ -1,18 +1,16 @@
 ﻿@using BlazorDemoApp.Shared.Data
-<div class="card">
-    <img class="card-img-top" src="/images/@Product.Image" alt="Product Image Description"/>
-    <div class="card-body">
-        <h5 class="card-title">@Product.Title</h5>
-        <p class="card-text">@Product.Price.ToString("C")</p>
-    </div>
-    <div class="card-footer">
-        <p class="text-center">FREE Delivery</p>
-    </div>
-</div>
+
+<Card ImageUrl="@($"/images/{Product.Image}")"
+      ImageAltText="Product Image Description"
+      Title="@Product.Title"
+      Text="@(Product.Price.ToString("C"))">
+    <FooterContent>
+        <span>FREE Delivery</span>
+    </FooterContent>
+</Card>
 
 @code {
-    
-    [Parameter]
-    public ProductSummary Product { get; set; }
-    
+
+    [Parameter] public ProductSummary Product { get; set; }
+
 }

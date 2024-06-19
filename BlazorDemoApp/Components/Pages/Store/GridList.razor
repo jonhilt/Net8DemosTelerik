@@ -8,16 +8,7 @@
         @foreach (var product in products)
         {
             <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="/images/@product.Image" alt="Product Image Description"/>
-                    <div class="card-body">
-                        <h5 class="card-title">@product.Title</h5>
-                        <p class="card-text">@product.Price.ToString("C")</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <span class="">FREE Delivery</span>
-                    </div>
-                </div>
+                <ProductCard Product="product"/>
             </div>
         }
     </div>
