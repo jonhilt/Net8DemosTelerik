@@ -4,6 +4,20 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.CustomSchemaIds(type =>
+    {
+        if (type.IsNested)
+        {
+            // Combine declaring type name with nested type name
+            return $"{type.DeclaringType?.Name}{type.Name}";
+        }
+        
+        return type.Name;
+    });
+});
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi(options =>
@@ -30,8 +44,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
-    app.UseSwaggerUI(options => { options.SwaggerEndpoint("/openapi/v1.json", "v1"); });
+    app.MapSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
