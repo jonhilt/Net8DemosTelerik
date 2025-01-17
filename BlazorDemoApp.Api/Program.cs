@@ -17,6 +17,7 @@ builder.Services.AddOpenApi(options =>
         if (type.IsNested)
         {
             schema.Title = $"{type.DeclaringType?.Name}{type.Name}";
+            // schema.Title = $"{type.DeclaringType?.Name}{type.Name}";
             return Task.CompletedTask;
         }
 
