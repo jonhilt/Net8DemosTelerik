@@ -1,0 +1,26 @@
+﻿@page "/Newsletter/EditForm"
+@using BlazorDemoApp.Data
+
+<h3>Newsletter Signup</h3>
+
+<EditForm method="post" Model="NewsletterForm" FormName="newsletter-signup" OnValidSubmit="EmailSubmitted" >
+    <label for="email" class="form-label">Email:</label>
+    <InputText id="email" @bind-Value="NewsletterForm.Email"/>
+    <button type="submit">Submit</button>
+</EditForm>
+
+<NavLink href="/Newsletter">
+    Switch to plain HTML form version
+</NavLink>
+
+@code {
+
+    [SupplyParameterFromForm]
+    public NewsletterForm NewsletterForm { get; set; } = new();
+
+    public void EmailSubmitted()
+    {
+        Console.WriteLine(NewsletterForm.Email);
+    }
+
+}

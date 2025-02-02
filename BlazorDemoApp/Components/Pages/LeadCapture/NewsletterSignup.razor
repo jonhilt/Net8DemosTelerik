@@ -1,0 +1,26 @@
+﻿@page "/Newsletter"
+
+<h3>Newsletter Signup</h3>
+
+<form method="post" @formname="newsletter-signup" @onsubmit="EmailSubmitted">
+    <label for="email" class="form-label">Email:</label>
+    <input type="text" name="email" id="email" value="@Email"/>
+    <button type="submit">Submit</button>
+
+    <AntiforgeryToken/>
+</form>
+
+<NavLink href="/Newsletter/EditForm">
+    Switch to EditForm version
+</NavLink>
+
+@code {
+
+    [SupplyParameterFromForm] public string Email { get; set; }
+
+    public void EmailSubmitted()
+    {
+        Console.WriteLine(Email);
+    }
+
+}

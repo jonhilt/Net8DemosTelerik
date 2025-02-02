@@ -4,27 +4,25 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Task Transformer(OpenApiSchema schema, OpenApiSchemaTransformerContext context, CancellationToken arg3)
+{
+    var type = context.JsonTypeInfo.Type;
+
+    if (!type.IsNested)
+        return Task.CompletedTask;
+
+    const string schemaId = "x-schema-id";
+    schema.Annotations[schemaId] = $"{type.DeclaringType?.Name}{type.Name}";
+
+    schema.Title = $"{type.DeclaringType?.Name}{type.Name}";
+    schema.Description = $"Request/Response for {type.DeclaringType?.Name}{type.Name}";
+    
+    return Task.CompletedTask;
+}
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi(options =>
-{
-    options.AddSchemaTransformer(Transformer);
-    return;
-
-    Task Transformer(OpenApiSchema schema, OpenApiSchemaTransformerContext context, CancellationToken arg3)
-    {
-        var type = context.JsonTypeInfo.Type;
-        if (type.IsNested)
-        {
-            schema.Title = $"{type.DeclaringType?.Name}{type.Name}";
-            // schema.Title = $"{type.DeclaringType?.Name}{type.Name}";
-            return Task.CompletedTask;
-        }
-
-        schema.Title = $"{type.Name}";
-        return Task.CompletedTask;
-    }
-});
+builder.Services.AddOpenApi(options => { options.AddSchemaTransformer(Transformer); });
 
 var app = builder.Build();
 
