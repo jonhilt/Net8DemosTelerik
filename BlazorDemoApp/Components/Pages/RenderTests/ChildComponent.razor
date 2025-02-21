@@ -1,0 +1,24 @@
+﻿<h3>ChildComponent</h3>
+
+@Name
+
+@Occupation
+
+@code {
+    
+    [Parameter] public string Name { get; set; }
+    [Parameter] public string Occupation { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("Set");
+        base.OnParametersSet();
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        Console.WriteLine("Async");
+        return base.OnParametersSetAsync();
+    }
+
+}

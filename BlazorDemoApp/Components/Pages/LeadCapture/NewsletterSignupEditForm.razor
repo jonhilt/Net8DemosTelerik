@@ -3,10 +3,12 @@
 
 <h3>Newsletter Signup</h3>
 
-<EditForm method="post" Model="NewsletterForm" FormName="newsletter-signup" OnValidSubmit="EmailSubmitted" >
+<EditForm method="post" Model="NewsletterForm" FormName="newsletter-signup" OnValidSubmit="EmailSubmitted">
+    <DataAnnotationsValidator />
     <label for="email" class="form-label">Email:</label>
     <InputText id="email" @bind-Value="NewsletterForm.Email"/>
     <button type="submit">Submit</button>
+    <ValidationSummary />
 </EditForm>
 
 <NavLink href="/Newsletter">

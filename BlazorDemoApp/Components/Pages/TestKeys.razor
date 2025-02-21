@@ -1,0 +1,41 @@
+﻿@page "/TestKeys"
+@rendermode InteractiveServer
+
+<h1>Hello, Telerik REPL for Blazor!</h1>
+
+<EditForm Model="TheForm">
+    <!-- "plain" input -->
+    <input type="text" @onkeydown="HandleKeyDown" />
+
+    <!-- Blazor component -->
+    <InputText @bind-Value="TheForm.Key" @onkeydown="@HandleKeyDown" />
+
+</EditForm>
+
+
+@code {
+
+    public class TestForm {
+        public string Key {get;set;}
+    }
+
+    private TestForm TheForm {get;set;} = new TestForm();
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        Console.WriteLine("keydown");
+
+        switch (e.Key)
+        {
+            case "Enter":
+                Console.WriteLine("enter");
+                break;
+            case "ArrowUp":
+                Console.WriteLine("up arrow");
+                break;
+            case "Escape":
+                Console.WriteLine("escape");
+                break;
+        }
+    }
+}
